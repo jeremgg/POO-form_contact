@@ -1,4 +1,12 @@
-<?php session_start(); ?>
+<?php
+    session_start();
+
+    //Load Class Form
+    require 'class/Form.php';
+
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,40 +66,27 @@
 
               <!-- Display the register form -->
               <form action="post.php" method="post">
+                  <!-- Initialiser une instance de la class Form -->
+                  <?php $form = new Form(isset($_SESSION['inputs']) ? $_SESSION['inputs'] : []); ?>
+
                   <div class="col-md-4">
-                      <div class="form-group">
-                          <label for="inputname">Votre nom</label>
-                          <input type="text" name="name" class="form-control" id="inputname" value="<?= isset($_SESSION['inputs']['name']) ? $_SESSION['inputs']['name'] : ''; ?>">
-                      </div>
+                      <?= $form->text('name', 'Votre Nom'); ?>
                   </div>
 
                   <div class="col-md-4">
-                      <div class="form-group">
-                          <label for="inputemail">Votre email</label>
-                          <input type="text" name="email" class="form-control" id="inputemail" value="<?= isset($_SESSION['inputs']['email']) ? $_SESSION['inputs']['email'] : ''; ?>">
-                      </div>
+                      <?= $form->email('email', 'Votre Email'); ?>
                   </div>
 
                   <div class="col-md-4">
-                      <div class="form-group">
-                          <label for="inputservice">Services...</label>
-                          <select name="service" id="inputservice" class="form-control" >
-                              <option value="0">Contact</option>
-                              <option value="1">Après-ventre</option>
-                              <option value="2">Assurance</option>
-                          </select>
-                      </div>
+                      <?= $form->select('service', 'Service', ['Contact', 'Après-ventre', 'Assurance']); ?>
                   </div>
 
                   <div class="col-md-12">
-                      <div class="form-group">
-                          <label for="inputmessage">Votre message</label>
-                          <textarea name="message" class="form-control" id="inputmessage"><?= isset($_SESSION['inputs']['message']) ? $_SESSION['inputs']['message'] : ''; ?></textarea>
-                      </div>
+                      <?= $form->textarea('message', 'Votre message'); ?>
                   </div>
 
                   <div class="col-md-12">
-                      <button type="submit" class="btn btn-primary">Envoyer</button>
+                      <?= $form->submit('Envoyer'); ?>
                   </div>
               </form>
           </div>
