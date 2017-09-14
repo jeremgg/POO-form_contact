@@ -1,5 +1,9 @@
 <?php
 
+    require 'class/ValidateForm.php';
+
+
+
     //Verify that data has been send via the form
     if(!empty($_POST)){
 
@@ -10,38 +14,32 @@
 
 
         //list service emails
-        $emails = ['contact@local.dev', 'depannage@local.dev', 'heimerdinger@local.dev'];
+        $emails = ['contact@local.dev', 'apres-vente@local.dev', 'assurance@local.dev'];
 
 
 
-        //check that the username field is not empty
-        if(!isset($_POST['name']) || empty($_POST['name'])){
-            $errors['name'] = "Vous n'avez pas renseigné votre nom";
-        }
+        //validate the form data
+        $validateForm = new ValidateForm($_POST);
 
 
 
-        //check that the email field is not empty and that its data is in the correct format
-        if(!isset($_POST['email']) || empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-            $errors['email'] = "Vous n'avez pas renseigné un email valide";
-        }
+        //Check that the name, email and message fields are required
+        //Check that the email address is valid
+        //Check that the select field option matches an email address in the $emails array
+        $validateForm->check('name', 'required');
+        $validateForm->check('email', 'required');
+        $validateForm->check('email', 'email');
+        $validateForm->check('message', 'required');
+        $validateForm->check('service', 'in', array_keys($emails));
 
 
+        //Then retrieve all errors
+        $errors = $validateForm->errors();
 
-        //check that the message field is not empty
-        if(!isset($_POST['message']) || empty($_POST['message'])){
-            $errors['message'] = "Vous n'avez pas renseigné votre message";
-        }
-
-
-
-        //verify the select field is not empty and that the value exists
-        if(!isset($_POST['service']) || !isset($emails[$_POST['service']])){
-            $errors['service'] = "Le service que vous demandez n'existe pas !!!";
-        }
 
 
         session_start();
+
 
 
         //If there are errors
