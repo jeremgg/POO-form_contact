@@ -1,8 +1,8 @@
 <?php
     session_start();
 
-    //Load Class Form
-    require 'class/Form.php';
+    //load autoloader
+    require_once 'inc/autoloader.php';
 
 ?>
 

@@ -1,6 +1,7 @@
 <?php
 
-    require 'class/ValidateForm.php';
+    //load autoloader
+    require_once 'inc/autoloader.php';
 
 
 
