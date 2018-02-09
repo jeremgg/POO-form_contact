@@ -56,8 +56,10 @@
         else{
             $_SESSION['success'] = 1;
             $message = $_POST['message'];
-            $headers = 'FROM: ' . $_POST['email'];
-            mail($emails[$_POST['service']], 'Formulaire de contact de ' . $_POST['name'], $message, $headers);
+            $headers = $_POST['email'];
+
+            // mail($emails[$_POST['service']], 'Formulaire de contact de ' . $_POST['name'], $message, $headers);
+            mail($emails[$_POST['service']], "Formulaire de contact de " . $_POST['name'], $message);
             header('location: index.php');
         }
     }

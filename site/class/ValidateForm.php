@@ -29,7 +29,7 @@
          public function check($name, $rule, $options = false){
              $validator = "validate_$rule";
              if(!$this->$validator($name, $options)){
-                 $this->errors[$name] = "Le champs $name n'a pas été rempli correctement";
+                 $this->errors[$name] = "Le champs $name n'à pas été rempli correctement";
              }
          }
 
